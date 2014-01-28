@@ -1,6 +1,6 @@
-#Canopy F# on Mono
+#canopy F# on Mono
 
-Instructions to get Canopy F# running on OSX. Because it's that good.
+Instructions to get canopy F# running on OSX. Because it's that good.
 
 ##Download and Install Mono
 
