@@ -59,4 +59,8 @@ And you should get the following output:
 
   `hello world`
 
+Now try running canopy tests (make sure you have chrome installed):
 
+  `fsi uitests.fsx`
+
+You should see chrome pop up and go to Google, then close.
