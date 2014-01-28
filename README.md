@@ -1,4 +1,4 @@
-#Canopy F# Everywhere
+#Canopy F# on Mono
 
 Instructions to get Canopy F# running on OSX. Because it's that good.
 
