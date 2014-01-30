@@ -3,7 +3,7 @@
 #I "./Selenium.Support.2.39.0/lib/net40/"
 #I "./SizSelCsZzz.0.3.35.0/lib/"
 #I "./Newtonsoft.Json.5.0.8/lib/net40/"
-#I "./canopy.0.9.2/lib/"
+#I "./canopy.0.9.3/lib/"
 
 #r "WebDriver.Support.dll"
 #r "WebDriver.dll"
@@ -17,9 +17,10 @@ open configuration
 open reporters
 open types
 
+printfn "%s" (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).ToString())
+
 configuration.chromeDir <- "./"
 
-let mainBrowser = browser
 elementTimeout <- 3.0
 compareTimeout <- 3.0
 pageTimeout <- 3.0
@@ -28,24 +29,21 @@ reporter <- new LiveHtmlReporter(Chrome, configuration.chromeDir) :> IReporter
 
 failFast := true
 
+start chrome
+let mainBrowser = browser
+
 context "context1"
 once (fun _ -> Console.WriteLine "once")
 before (fun _ -> Console.WriteLine "before")
 after (fun _ -> Console.WriteLine "after")
 lastly (fun _ -> Console.WriteLine "lastly")
- 
-let testpage = "http://lefthandedgoat.github.io/canopy/testpages/" 
 
-"intentionally skipped shows blue in LiveHtmlReport" &&! skipped
+let testpage = "http://lefthandedgoat.github.io/canopy/testpages/" 
 
 "#welcome should have Welcome" &&& fun _ ->    
     url testpage
     "#welcome" == "Welcome"
 
-//ntest "description" (fun _ -> url "http://www.google.com")
-//and
-//"description" &&& fun _ -> url "http://www.google.com")
-//do the same thing
 ntest "find by label, following field" (fun _ ->
     url testpage
     "Test Field 1" == "test value 1")
@@ -475,40 +473,40 @@ context "dragging"
     ".handle" --> ".inprogress"
     click "Blog"
 
-if not (browser :? OpenQA.Selenium.PhantomJS.PhantomJSDriver) then
-    context "alert tests"
-
-    before (fun _ -> !^ "http://lefthandedgoat.github.io/canopy/testpages/alert")
-
-    "alert box should have 'Alert Test'" &&& fun _ ->    
-        click "#alert_test"
-        alert() == "Alert Test"
-        acceptAlert()
-
-    "alert box should have 'Alert Test'" &&& fun _ ->
-        click "#alert_test"
-        alert() == "Alert Test"
-        dismissAlert()
-
-    "alert box should fail correctly when expecting wrong message" &&& fun _ -> 
-        failsWith "equality check failed.  expected: Not the message, got: Alert Test"    
-        click "#alert_test"
-        alert() == "Not the message"
-
-    "confirmation box should have 'Confirmation Test'" &&& fun _ ->
-        click "#confirmation_test"
-        alert() == "Confirmation Test"
-        acceptAlert()
-
-    "confirmation box should have 'Confirmation Test'" &&& fun _ ->
-        click "#confirmation_test"
-        alert() == "Confirmation Test"
-        dismissAlert()
-
-    "confirmation box should fail correctly when expecting wrong message" &&& fun _ ->
-        failsWith "equality check failed.  expected: Not the message, got: Confirmation Test"
-        click "#confirmation_test"
-        alert() == "Not the message"
+//if not (browser :? OpenQA.Selenium.PhantomJS.PhantomJSDriver) then
+//    context "alert tests"
+//
+//    before (fun _ -> !^ "http://lefthandedgoat.github.io/canopy/testpages/alert")
+//
+//    "alert box should have 'Alert Test'" &&& fun _ ->    
+//        click "#alert_test"
+//        alert() == "Alert Test"
+//        acceptAlert()
+//
+//    "alert box should have 'Alert Test'" &&& fun _ ->
+//        click "#alert_test"
+//        alert() == "Alert Test"
+//        dismissAlert()
+//
+//    "alert box should fail correctly when expecting wrong message" &&& fun _ -> 
+//        failsWith "equality check failed.  expected: Not the message, got: Alert Test"    
+//        click "#alert_test"
+//        alert() == "Not the message"
+//
+//    "confirmation box should have 'Confirmation Test'" &&& fun _ ->
+//        click "#confirmation_test"
+//        alert() == "Confirmation Test"
+//        acceptAlert()
+//
+//    "confirmation box should have 'Confirmation Test'" &&& fun _ ->
+//        click "#confirmation_test"
+//        alert() == "Confirmation Test"
+//        dismissAlert()
+//
+//    "confirmation box should fail correctly when expecting wrong message" &&& fun _ ->
+//        failsWith "equality check failed.  expected: Not the message, got: Confirmation Test"
+//        click "#confirmation_test"
+//        alert() == "Not the message"
 
 context "multiple elements test"
 
@@ -543,24 +541,24 @@ context "User Agents tests"
     url "http://whatsmyuseragent.com/"
     "#body_lbUserAgent" =~ "iPad"
 
-"FirefoxDeviceWithUserAgent userAgents.iPhone should show as iPhone" &&& fun _ ->
-    start <| FirefoxWithUserAgent userAgents.iPhone
-    url "http://whatsmyuseragent.com/"
-    "#body_lbUserAgent" =~ "iPhone"
-
-"FirefoxDeviceWithUserAgent myagent should show as myagent" &&& fun _ ->
-    start <| FirefoxWithUserAgent "myagent"
-    url "http://whatsmyuseragent.com/"
-    "#body_lbUserAgent" == "myagent"
+//"FirefoxDeviceWithUserAgent userAgents.iPhone should show as iPhone" &&& fun _ ->
+//    start <| FirefoxWithUserAgent userAgents.iPhone
+//    url "http://whatsmyuseragent.com/"
+//    "#body_lbUserAgent" =~ "iPhone"
+//
+//"FirefoxDeviceWithUserAgent myagent should show as myagent" &&& fun _ ->
+//    start <| FirefoxWithUserAgent "myagent"
+//    url "http://whatsmyuseragent.com/"
+//    "#body_lbUserAgent" == "myagent"
 
 context "Resize tests"
 
-"Firefox should be resized to 400,400" &&& fun _ ->
-    start chrome
-    url "http://resizemybrowser.com/"
-    resize (400,400)
-    "#cWidth" == "400"
-    "#cHeight" == "400"
+//"Firefox should be resized to 400,400" &&& fun _ ->
+//    start chrome
+//    url "http://resizemybrowser.com/"
+//    resize (400,400)
+//    "#cWidth" == "400"
+//    "#cHeight" == "400"
 
 "Chrome should be resized to iPhone4" &&& fun _ ->
     start chrome
@@ -569,13 +567,13 @@ context "Resize tests"
     "#cWidth" == "320"
     "#cHeight" == "480"
 
-"Firefox should be resized to 400,500 then rotated to 500,400" &&& fun _ ->
-    start chrome
-    url "http://resizemybrowser.com/"
-    resize (400,500)
-    rotate()
-    "#cHeight" == "400"
-    "#cWidth" == "500"
+//"Firefox should be resized to 400,500 then rotated to 500,400" &&& fun _ ->
+//    start chrome
+//    url "http://resizemybrowser.com/"
+//    resize (400,500)
+//    rotate()
+//    "#cHeight" == "400"
+//    "#cWidth" == "500"
 
 "Chrome should be resized and rotated to iPhone4" &&& fun _ ->
     start chrome
@@ -597,20 +595,17 @@ context "Resize tests"
 //
 //addFinder findByHref
 
-"Firefox should be resized to 400,500 then rotated to 500,400" &&& fun _ ->
-    url "http://lefthandedgoat.github.io/canopy/index.html"
-    click "about.html"
-    on "http://lefthandedgoat.github.io/canopy/about.html"
+//"Firefox should be resized to 400,500 then rotated to 500,400" &&& fun _ ->
+//    url "http://lefthandedgoat.github.io/canopy/index.html"
+//    click "about.html"
+//    on "http://lefthandedgoat.github.io/canopy/about.html"
 
 context "todo tests"
 
 "write a test that tests the whole internet!" &&& todo
 
-run ()
-        
-switchTo mainBrowser
-coverage testpage
-coverage()
-coverage "http://scrumy.com/silenter39delayed"
+run()
+
+System.Console.ReadLine()
 
 quit()

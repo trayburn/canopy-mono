@@ -47,6 +47,9 @@
 <member name="">
 
 </member>
+<member name="">
+
+</member>
 <member name="T:canopy.configuration">
 
 </member>
@@ -353,19 +356,34 @@
 <member name="">
 
 </member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
-<member name="">
-
-</member>
 <member name="T:canopy.core">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:canopy.finders">
 
 </member>
 <member name="">
