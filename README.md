@@ -63,4 +63,4 @@ Now try running canopy tests (make sure you have chrome installed):
 
   `fsi uitests.fsx`
 
-You should see chrome pop up and go to Google, then close.
+You should a slew of test suites run. It's freaking awesome.
