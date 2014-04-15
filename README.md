@@ -21,7 +21,7 @@ Then build it like a boss
     make
     sudo make install
 
-The output will be copied to `./lib/release`. Copy the contents of `./lib/release` to `/usr/local/fsharp/bin/`.
+The output will be copied to `./lib/release`. Copy the contents of `./lib/release` to `/usr/local/bin/fsharp/`.
 
 Create two shell scripts in `/usr/local/bin/fsharp`
 
