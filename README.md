@@ -23,27 +23,27 @@ Then build it like a boss
 
 The output will be copied to `./lib/release`. Copy the contents of `./lib/release` to `/usr/local/fsharp/bin/`.
 
-Create two shell scripts in `/usr/local/fsharp/bin`
+Create two shell scripts in `/usr/local/bin/fsharp`
 
 Name the first one `fsc` (no extention) with the following contents:
 
     #!/bin/bash
-    mono /usr/local/fsharp/bin/fsc.exe $@
+    mono /usr/local/bin/fsharp/fsc.exe $@
 
 Name the next one `fsi` (no extention) with the following contents:
 
     #!/bin/bash
-    mono /usr/local/fsharp/bin/fsi.exe $@
+    mono /usr/local/bin/fsharp/fsi.exe $@
 
 Then mark them as executables
 
-    chmod +x /usr/local/fsharp/bin/fsc
-    chmod +x /usr/local/fsharp/bin/fsi
+    chmod +x /usr/local/bin/fsharp/fsc
+    chmod +x /usr/local/bin/fsharp/fsi
 
 Add the `/usr/local/fsharp/bin` directory to your path. I added the following line to my `~/.bashrc`
 
     ### I Added fsharp
-    export PATH="/usr/local/fsharp/bin:$PATH"
+    export PATH="/usr/local/bin/fsharp:$PATH"
 
 Then reload `~/.bashrc`
 
